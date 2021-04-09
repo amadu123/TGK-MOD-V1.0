@@ -10073,7 +10073,7 @@ if(item == "h" && data[1] == myPlayer.id) {
                 }, 100);
        }
              if(data[2] < 71 && data[2] > 0 && poggy == true) {
-   doNewSend(["ch", ["TGK OP"]]);
+   doNewSend(["ch", ["get hack moooo.io TGK MOD on yt"]]);
         autoaim = true;
         autoprimary = true;
         autosecondary = false;
@@ -10134,7 +10134,7 @@ if(item == "h" && data[1] == myPlayer.id) {
          setTimeout( () => {
             doNewSend(["ch", [""]]);
          setTimeout( () => {
-             doNewSend(["ch", ["TGK OP"]]);
+             doNewSend(["ch", ["get hack moooo.io TGK MOD on yt"]]);
          setTimeout( () => {
             doNewSend(["ch", ["Musket Reloaded"]]);
             doNewSend(["5", [primary, true]]);
@@ -11173,7 +11173,7 @@ function isElementVisible(e) {
     return (e.offsetParent !== null);
 }
 function send2(){
- doNewSend(["ch", ["TGK OP"]]);
+ doNewSend(["ch", ["get hack moooo.io TGK MOD on yt"]]);
 }
 function invinsiblebuilding (id) {
 place(id, Number.MAX_VALUE);
@@ -11188,7 +11188,7 @@ function Str(s) {
     return str(s);
 }
 function send(){
- doNewSend(["ch", ["TGK OP"]]);
+ doNewSend(["ch", ["get hack moooo.io TGK MOD on yt"]]);
 }
 function nani(){
  doNewSend(["ch", [""]]);
