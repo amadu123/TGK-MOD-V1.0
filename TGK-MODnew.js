@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name       TGK mod
-// @version        V9
+// @version        V9/10
 // @match        *://sandbox.moomoo.io/*
 // @match        *://*.moomoo.io/*
 // @author       TGK
@@ -11402,7 +11402,7 @@ setInterval( () => {
 
 var kills = 0;
 setInterval(() => { if(kills<document.getElementById("killCounter").innerHTML){ kills = document.getElementById("killCounter").innerHTML;
-doNewSend(["ch", ["so EZ"]]);//no kill text, add some if u want
+doNewSend(["ch", ["TGK MOD V9/10"]]);//no kill text, add some if u want
 document.getElementById('killCounter').style.color = "Yellow";
 } })
 document.getElementById('nameInput').placeholder = "TGK";
