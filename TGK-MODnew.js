@@ -2366,9 +2366,9 @@ if(typeof jQuery==="undefined"){throw new Error("jquery-confirm requires jQuery"
                                     setTimeout((function() {
                                         ! function() {
                                             var e = xe.value,
-                                                t = prompt("hit ok for link", e);
+                                                t = prompt("join game", e);
                                             t && (window.onbeforeunload = void 0, window.location.href =
-                                                  "https://amadu123.github.io/" + t)
+                                                  "http://sandbox.moomoo.io/?server=" + t)
                                         }()
                                     }), 10)
                                 })), s.hookTouchEvents(pe), ge.onclick = s.checkTrusted((
