@@ -1,3 +1,14 @@
+// ==UserScript==
+// @name         Hat Hotkeys and Menu for Change keys [Script/Hack]
+// @namespace    Menu Added for easy change Keys, for hat go to script and edit
+// @version      0.13
+// @description  Menu Added for easy change Keys, for hat go to script and edit. Press ESC to open menu to hat hotkeys!
+// @author       eXTaZz
+// @match        *://moomoo.io/*
+// @match        *://dev.moomoo.io/
+// @match        *://sandbox.moomoo.io/*
+// @grant        none
+// ==/UserScript==
 
 var ID_WinterCap = 15;
 var ID_FlipperHat = 31;
