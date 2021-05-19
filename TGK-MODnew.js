@@ -551,11 +551,11 @@ let hatToggle = true;
 let AutoPlague = 0;
 var PREFIX = '.';
 var crashing = false;
-var delay = 0.01;
-var ainstdel = 0.01;
+var delay = 100;
+var ainstdel = 100;
 var ctx;
 var sayping = false;
-var chatmir = true;
+var chatmir = false;
 
 
 
@@ -1058,29 +1058,9 @@ function hat(id) {
             doNewSend(["13c", [0, id, 0]]);
         }
     }
-}
-
-function reload(wep) {
-    doNewSend(["c", [0, myPlayer.dir]]);
-    if(toxicmode) {
-                                    doNewSend(["ch", ['I\'m reloading, attack if gay']]);
-    } else {
-            say('reloading');
-    }
-    hat(20);
-    autoprimary = false;
-    autosecondary = true;
-    setTimeout( () => {
-        say('reloaded');
-        fastest();
-        autosecondary = false;
-        autoprimary = true;
-        doNewSend(["5", [primary, true]]);
-        setTimeout( () => {
-            autoprimary = false;
-        }, 100);
-    }, 1675);
-}
+;
+;
+;
 
 function besttool(ps, b){
     if(dobest) {
@@ -1210,7 +1190,7 @@ document.addEventListener('keydown', (e)=>{
 
      if(e.keyCode == 82 && document.activeElement.id.toLowerCase() !== 'chatbox') {
         autoaim=true;
-        doNewSend(["ch", ["TGK MOD HOP U LOVE IT"]]);
+        doNewSend(["ch", ["TGKMOD V20 DUMMY"]]);
         doNewSend(["5", [primary, true]]);
         doNewSend(["13c", [0, 7, 0]]);
         doNewSend(["13c", [0, 0, 1]]);
@@ -1232,11 +1212,11 @@ document.addEventListener('keydown', (e)=>{
             autoaim=false;
         }, 250);
         setTimeout( () => {
-            doNewSend(["ch", ["reloading"]]);
+            doNewSend(["ch", ["IM reloading YOUR GUN"]]);
             doNewSend(["5", [secondary, true]]);
         }, 1000);
         setTimeout( () => {
-            doNewSend(["ch", ["reloaded..."]]);
+            doNewSend(["ch", ["IM reloaded... YOR GUN"]]);
             doNewSend(["5", [primary, true]]);
         }, 1550);
     }
