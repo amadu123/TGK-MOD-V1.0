@@ -1,0 +1,1022 @@
+sh = e)
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(i.prototype, "snapDistance", {
+          get: function() {
+            return this.xGizmo.snapDistance
+          },
+          set: function(e) {
+            this.xGizmo && (this.xGizmo.snapDistance = e, this.yGizmo.snapDistance = e, this.zGizmo.snapDistance = e)
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(i.prototype, "scaleRatio", {
+          get: function() {
+            return this.xGizmo.scaleRatio
+          },
+          set: function(e) {
+            this.xGizmo && (this.xGizmo.scaleRatio = e, this.yGizmo.scaleRatio = e, this.zGizmo.scaleRatio = e)
+          },
+          enumerable: !0,
+          configurable: !0
+        }), i.prototype.dispose = function() {
+          this.xGizmo.dispose(), this.yGizmo.dispose(), this.zGizmo.dispose(), this.onDragStartObservable.clear(), this.onDragEndObservable.clear()
+        }, i.prototype.setCustomMesh = function(t) {
+          e.Tools.Error("Custom meshes are not supported on this gizmo, please set the custom meshes on the gizmos contained within this one (gizmo.xGizmo, gizmo.yGizmo, gizmo.zGizmo)")
+        }, i
+      }(e.Gizmo);
+      e.RotationGizmo = t
+    }(s || (s = {})),
+    function(e) {
+      var t = function(t) {
+        function i(i) {
+          void 0 === i && (i = e.UtilityLayerRenderer.DefaultUtilityLayer);
+          var r = t.call(this, i) || this;
+          r.onDragStartObservable = new e.Observable, r.onDragEndObservable = new e.Observable, r.xGizmo = new e.AxisScaleGizmo(new e.Vector3(1, 0, 0), e.Color3.Red()
+            .scale(.5), i), r.yGizmo = new e.AxisScaleGizmo(new e.Vector3(0, 1, 0), e.Color3.Green()
+            .scale(.5), i), r.zGizmo = new e.AxisScaleGizmo(new e.Vector3(0, 0, 1), e.Color3.Blue()
+            .scale(.5), i), r.uniformScaleGizmo = new e.AxisScaleGizmo(new e.Vector3(0, 1, 0), e.Color3.Yellow()
+            .scale(.5), i), r.uniformScaleGizmo.updateGizmoRotationToMatchAttachedMesh = !1, r.uniformScaleGizmo.uniformScaling = !0;
+          var n = e.Mesh.CreatePolyhedron("", {
+            type: 1
+          }, r.uniformScaleGizmo.gizmoLayer.utilityLayerScene);
+          n.scaling.scaleInPlace(.02), n.visibility = 0;
+          var o = e.Mesh.CreatePolyhedron("", {
+            type: 1
+          }, r.uniformScaleGizmo.gizmoLayer.utilityLayerScene);
+          return o.scaling.scaleInPlace(.007), n.addChild(o), r.uniformScaleGizmo.setCustomMesh(n, !0), [r.xGizmo, r.yGizmo, r.zGizmo, r.uniformScaleGizmo].forEach((function(e) {
+            e.dragBehavior.onDragStartObservable.add((function() {
+              r.onDragStartObservable.notifyObservers({})
+            })), e.dragBehavior.onDragEndObservable.add((function() {
+              r.onDragEndObservable.notifyObservers({})
+            }))
+          })), r.attachedMesh = null, r
+        }
+        return o(i, t), Object.defineProperty(i.prototype, "attachedMesh", {
+          set: function(e) {
+            this.xGizmo && (this.xGizmo.attachedMesh = e, this.yGizmo.attachedMesh = e, this.zGizmo.attachedMesh = e, this.uniformScaleGizmo.attachedMesh = e)
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(i.prototype, "updateGizmoRotationToMatchAttachedMesh", {
+          get: function() {
+            return this.xGizmo.updateGizmoRotationToMatchAttachedMesh
+          },
+          set: function(t) {
+            t || e.Tools.Warn("Setting updateGizmoRotationToMatchAttachedMesh = false on scaling gizmo is not supported."), this.xGizmo && (this.xGizmo.updateGizmoRotationToMatchAttachedMesh = t, this.yGizmo.updateGizmoRotationToMatchAttachedMesh = t, this.zGizmo.updateGizmoRotationToMatchAttachedMesh = t)
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(i.prototype, "snapDistance", {
+          get: function() {
+            return this.xGizmo.snapDistance
+          },
+          set: function(e) {
+            this.xGizmo && (this.xGizmo.snapDistance = e, this.yGizmo.snapDistance = e, this.zGizmo.snapDistance = e, this.uniformScaleGizmo.snapDistance = e)
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(i.prototype, "scaleRatio", {
+          get: function() {
+            return this.xGizmo.scaleRatio
+          },
+          set: function(e) {
+            this.xGizmo && (this.xGizmo.scaleRatio = e, this.yGizmo.scaleRatio = e, this.zGizmo.scaleRatio = e, this.uniformScaleGizmo.scaleRatio = e)
+          },
+          enumerable: !0,
+          configurable: !0
+        }), i.prototype.dispose = function() {
+          this.xGizmo.dispose(), this.yGizmo.dispose(), this.zGizmo.dispose(), this.uniformScaleGizmo.dispose(), this.onDragStartObservable.clear(), this.onDragEndObservable.clear()
+        }, i
+      }(e.Gizmo);
+      e.ScaleGizmo = t
+    }(s || (s = {})),
+    function(e) {
+      var t = function(t) {
+        function i(r, n) {
+          void 0 === r && (r = e.Color3.Gray()), void 0 === n && (n = e.UtilityLayerRenderer.DefaultKeepDepthUtilityLayer);
+          var o = t.call(this, n) || this;
+          o._boundingDimensions = new e.Vector3(1, 1, 1), o._renderObserver = null, o._pointerObserver = null, o._scaleDragSpeed = .2, o._tmpQuaternion = new e.Quaternion, o._tmpVector = new e.Vector3(0, 0, 0), o._tmpRotationMatrix = new e.Matrix, o.ignoreChildren = !1, o.includeChildPredicate = null, o.rotationSphereSize = .1, o.scaleBoxSize = .1, o.fixedDragMeshScreenSize = !1, o.fixedDragMeshScreenSizeDistanceFactor = 10, o.onDragStartObservable = new e.Observable, o.onScaleBoxDragObservable = new e.Observable, o.onScaleBoxDragEndObservable = new e.Observable, o.onRotationSphereDragObservable = new e.Observable, o.onRotationSphereDragEndObservable = new e.Observable, o.scalePivot = null, o._existingMeshScale = new e.Vector3, o._updateScale = !1, o._anchorMesh = new e.AbstractMesh("anchor", n.utilityLayerScene);
+          var a = new e.StandardMaterial("", n.utilityLayerScene);
+          a.disableLighting = !0, a.emissiveColor = r;
+          var s = new e.StandardMaterial("", n.utilityLayerScene);
+          s.disableLighting = !0, s.emissiveColor = r.clone()
+            .add(new e.Color3(.3, .3, .3)), o._lineBoundingBox = new e.AbstractMesh("", n.utilityLayerScene), o._lineBoundingBox.rotationQuaternion = new e.Quaternion;
+          var l = [];
+          l.push(e.MeshBuilder.CreateLines("lines", {
+            points: [new e.Vector3(0, 0, 0), new e.Vector3(o._boundingDimensions.x, 0, 0)]
+          }, n.utilityLayerScene)), l.push(e.MeshBuilder.CreateLines("lines", {
+            points: [new e.Vector3(0, 0, 0), new e.Vector3(0, o._boundingDimensions.y, 0)]
+          }, n.utilityLayerScene)), l.push(e.MeshBuilder.CreateLines("lines", {
+            points: [new e.Vector3(0, 0, 0), new e.Vector3(0, 0, o._boundingDimensions.z)]
+          }, n.utilityLayerScene)), l.push(e.MeshBuilder.CreateLines("lines", {
+            points: [new e.Vector3(o._boundingDimensions.x, 0, 0), new e.Vector3(o._boundingDimensions.x, o._boundingDimensions.y, 0)]
+          }, n.utilityLayerScene)), l.push(e.MeshBuilder.CreateLines("lines", {
+            points: [new e.Vector3(o._boundingDimensions.x, 0, 0), new e.Vector3(o._boundingDimensions.x, 0, o._boundingDimensions.z)]
+          }, n.utilityLayerScene)), l.push(e.MeshBuilder.CreateLines("lines", {
+            points: [new e.Vector3(0, o._boundingDimensions.y, 0), new e.Vector3(o._boundingDimensions.x, o._boundingDimensions.y, 0)]
+          }, n.utilityLayerScene)), l.push(e.MeshBuilder.CreateLines("lines", {
+            points: [new e.Vector3(0, o._boundingDimensions.y, 0), new e.Vector3(0, o._boundingDimensions.y, o._boundingDimensions.z)]
+          }, n.utilityLayerScene)), l.push(e.MeshBuilder.CreateLines("lines", {
+            points: [new e.Vector3(0, 0, o._boundingDimensions.z), new e.Vector3(o._boundingDimensions.x, 0, o._boundingDimensions.z)]
+          }, n.utilityLayerScene)), l.push(e.MeshBuilder.CreateLines("lines", {
+            points: [new e.Vector3(0, 0, o._boundingDimensions.z), new e.Vector3(0, o._boundingDimensions.y, o._boundingDimensions.z)]
+          }, n.utilityLayerScene)), l.push(e.MeshBuilder.CreateLines("lines", {
+            points: [new e.Vector3(o._boundingDimensions.x, o._boundingDimensions.y, o._boundingDimensions.z), new e.Vector3(0, o._boundingDimensions.y, o._boundingDimensions.z)]
+          }, n.utilityLayerScene)), l.push(e.MeshBuilder.CreateLines("lines", {
+            points: [new e.Vector3(o._boundingDimensions.x, o._boundingDimensions.y, o._boundingDimensions.z), new e.Vector3(o._boundingDimensions.x, 0, o._boundingDimensions.z)]
+          }, n.utilityLayerScene)), l.push(e.MeshBuilder.CreateLines("lines", {
+            points: [new e.Vector3(o._boundingDimensions.x, o._boundingDimensions.y, o._boundingDimensions.z), new e.Vector3(o._boundingDimensions.x, o._boundingDimensions.y, 0)]
+          }, n.utilityLayerScene)), l.forEach((function(t) {
+            t.color = r, t.position.addInPlace(new e.Vector3(-o._boundingDimensions.x / 2, -o._boundingDimensions.y / 2, -o._boundingDimensions.z / 2)), t.isPickable = !1, o._lineBoundingBox.addChild(t)
+          })), o._rootMesh.addChild(o._lineBoundingBox), o._rotateSpheresParent = new e.AbstractMesh("", n.utilityLayerScene), o._rotateSpheresParent.rotationQuaternion = new e.Quaternion;
+          for (var c = function(t) {
+              var r = e.MeshBuilder.CreateSphere("", {
+                diameter: 1
+              }, n.utilityLayerScene);
+              r.rotationQuaternion = new e.Quaternion, r.material = a, (f = new e.PointerDragBehavior({}))
+                .moveAttached = !1, f.updateDragPlane = !1, r.addBehavior(f);
+              var s = new e.Vector3(1, 0, 0),
+                l = 0;
+              f.onDragStartObservable.add((function(e) {
+                s.copyFrom(r.forward), l = 0
+              })), f.onDragObservable.add((function(r) {
+                if (o.onRotationSphereDragObservable.notifyObservers({}), o.attachedMesh) {
+                  i._RemoveAndStorePivotPoint(o.attachedMesh);
+                  var n = s,
+                    a = r.dragPlaneNormal.scale(e.Vector3.Dot(r.dragPlaneNormal, n)),
+                    c = n.subtract(a)
+                    .normalizeToNew(),
+                    h = -e.Vector3.Dot(c, r.delta);
+                  h = h / o._boundingDimensions.length() * o._anchorMesh.scaling.length(), o.attachedMesh.rotationQuaternion || (o.attachedMesh.rotationQuaternion = e.Quaternion.RotationYawPitchRoll(o.attachedMesh.rotation.y, o.attachedMesh.rotation.x, o.attachedMesh.rotation.z)), o._anchorMesh.rotationQuaternion || (o._anchorMesh.rotationQuaternion = e.Quaternion.RotationYawPitchRoll(o._anchorMesh.rotation.y, o._anchorMesh.rotation.x, o._anchorMesh.rotation.z)), l += h, Math.abs(l) <= 2 * Math.PI && (t >= 8 ? e.Quaternion.RotationYawPitchRollToRef(0, 0, h, o._tmpQuaternion) : t >= 4 ? e.Quaternion.RotationYawPitchRollToRef(h, 0, 0, o._tmpQuaternion) : e.Quaternion.RotationYawPitchRollToRef(0, h, 0, o._tmpQuaternion), o._anchorMesh.addChild(o.attachedMesh), o._anchorMesh.rotationQuaternion.multiplyToRef(o._tmpQuaternion, o._anchorMesh.rotationQuaternion), o._anchorMesh.removeChild(o.attachedMesh)), o.updateBoundingBox(), i._RestorePivotPoint(o.attachedMesh)
+                }
+              })), f.onDragStartObservable.add((function() {
+                o.onDragStartObservable.notifyObservers({}), o._selectNode(r)
+              })), f.onDragEndObservable.add((function() {
+                o.onRotationSphereDragEndObservable.notifyObservers({}), o._selectNode(null)
+              })), h._rotateSpheresParent.addChild(r)
+            }, h = this, u = 0; u < 12; u++) c(u);
+          o._rootMesh.addChild(o._rotateSpheresParent), o._scaleBoxesParent = new e.AbstractMesh("", n.utilityLayerScene), o._scaleBoxesParent.rotationQuaternion = new e.Quaternion;
+          for (var d = 0; d < 2; d++)
+            for (var p = 0; p < 2; p++)
+              for (var f, m = function() {
+                  var t = e.MeshBuilder.CreateBox("", {
+                    size: 1
+                  }, n.utilityLayerScene);
+                  t.material = a;
+                  var r = new e.Vector3(0 == d ? -1 : 1, 0 == p ? -1 : 1, 0 == g ? -1 : 1);
+                  (f = new e.PointerDragBehavior({
+                    dragAxis: r
+                  }))
+                  .moveAttached = !1, t.addBehavior(f), f.onDragObservable.add((function(r) {
+                    if (o.onScaleBoxDragObservable.notifyObservers({}), o.attachedMesh) {
+                      i._RemoveAndStorePivotPoint(o.attachedMesh);
+                      var n = r.dragDistance / o._boundingDimensions.length() * o._anchorMesh.scaling.length(),
+                        a = new e.Vector3(n, n, n);
+                      a.scaleInPlace(o._scaleDragSpeed), o.updateBoundingBox(), o.scalePivot ? (o.attachedMesh.getWorldMatrix()
+                        .getRotationMatrixToRef(o._tmpRotationMatrix), o._boundingDimensions.scaleToRef(.5, o._tmpVector), e.Vector3.TransformCoordinatesToRef(o._tmpVector, o._tmpRotationMatrix, o._tmpVector), o._anchorMesh.position.subtractInPlace(o._tmpVector), o._boundingDimensions.multiplyToRef(o.scalePivot, o._tmpVector), e.Vector3.TransformCoordinatesToRef(o._tmpVector, o._tmpRotationMatrix, o._tmpVector), o._anchorMesh.position.addInPlace(o._tmpVector)) : (t.absolutePosition.subtractToRef(o._anchorMesh.position, o._tmpVector), o._anchorMesh.position.subtractInPlace(o._tmpVector)), o._anchorMesh.addChild(o.attachedMesh), o._anchorMesh.scaling.addInPlace(a), (o._anchorMesh.scaling.x < 0 || o._anchorMesh.scaling.y < 0 || o._anchorMesh.scaling.z < 0) && o._anchorMesh.scaling.subtractInPlace(a), o._anchorMesh.removeChild(o.attachedMesh), i._RestorePivotPoint(o.attachedMesh)
+                    }
+                  })), f.onDragStartObservable.add((function() {
+                    o.onDragStartObservable.notifyObservers({}), o._selectNode(t)
+                  })), f.onDragEndObservable.add((function() {
+                    o.onScaleBoxDragEndObservable.notifyObservers({}), o._selectNode(null)
+                  })), _._scaleBoxesParent.addChild(t)
+                }, _ = this, g = 0; g < 2; g++) m();
+          o._rootMesh.addChild(o._scaleBoxesParent);
+          var v = new Array;
+          return o._pointerObserver = n.utilityLayerScene.onPointerObservable.add((function(e, t) {
+            v[e.event.pointerId] ? e.pickInfo && e.pickInfo.pickedMesh != v[e.event.pointerId] && (v[e.event.pointerId].material = a, delete v[e.event.pointerId]) : o._rotateSpheresParent.getChildMeshes()
+              .concat(o._scaleBoxesParent.getChildMeshes())
+              .forEach((function(t) {
+                e.pickInfo && e.pickInfo.pickedMesh == t && (v[e.event.pointerId] = t, t.material = s)
+              }))
+          })), o._renderObserver = o.gizmoLayer.originalScene.onBeforeRenderObservable.add((function() {
+            o.attachedMesh && !o._existingMeshScale.equals(o.attachedMesh.scaling) && o.updateBoundingBox()
+          })), o.updateBoundingBox(), o
+        }
+        return o(i, t), i._RemoveAndStorePivotPoint = function(t) {
+          t && 0 === i._PivotCached && (t.getPivotPointToRef(i._OldPivotPoint), i._OldPivotPoint.equalsToFloats(0, 0, 0) || (t.setPivotMatrix(e.Matrix.IdentityReadOnly), i._OldPivotPoint.subtractToRef(t.getPivotPoint(), i._PivotTranslation), i._PivotTmpVector.copyFromFloats(1, 1, 1), i._PivotTmpVector.subtractInPlace(t.scaling), i._PivotTmpVector.multiplyInPlace(i._PivotTranslation), t.position.addInPlace(i._PivotTmpVector))), i._PivotCached++
+        }, i._RestorePivotPoint = function(e) {
+          e && !i._OldPivotPoint.equalsToFloats(0, 0, 0) && 1 === i._PivotCached && (e.setPivotPoint(i._OldPivotPoint), i._PivotTmpVector.copyFromFloats(1, 1, 1), i._PivotTmpVector.subtractInPlace(e.scaling), i._PivotTmpVector.multiplyInPlace(i._PivotTranslation), e.position.subtractInPlace(i._PivotTmpVector)), this._PivotCached--
+        }, i.prototype._attachedMeshChanged = function(e) {
+          e && (i._RemoveAndStorePivotPoint(e), this._anchorMesh.addChild(e), this._anchorMesh.removeChild(e), i._RestorePivotPoint(e), this.updateBoundingBox())
+        }, i.prototype._selectNode = function(e) {
+          this._rotateSpheresParent.getChildMeshes()
+            .concat(this._scaleBoxesParent.getChildMeshes())
+            .forEach((function(t, i) {
+              t.isVisible = !e || t == e
+            }))
+        }, i.prototype.updateBoundingBox = function() {
+          if (this.attachedMesh) {
+            i._RemoveAndStorePivotPoint(this.attachedMesh), this._update(), this.attachedMesh.rotationQuaternion || (this.attachedMesh.rotationQuaternion = e.Quaternion.RotationYawPitchRoll(this.attachedMesh.rotation.y, this.attachedMesh.rotation.x, this.attachedMesh.rotation.z)), this._anchorMesh.rotationQuaternion || (this._anchorMesh.rotationQuaternion = e.Quaternion.RotationYawPitchRoll(this._anchorMesh.rotation.y, this._anchorMesh.rotation.x, this._anchorMesh.rotation.z)), this._anchorMesh.rotationQuaternion.copyFrom(this.attachedMesh.rotationQuaternion), this._tmpQuaternion.copyFrom(this.attachedMesh.rotationQuaternion), this._tmpVector.copyFrom(this.attachedMesh.position), this.attachedMesh.rotationQuaternion.set(0, 0, 0, 1), this.attachedMesh.position.set(0, 0, 0);
+            var t = this.attachedMesh.getHierarchyBoundingVectors(!this.ignoreChildren, this.includeChildPredicate);
+            t.max.subtractToRef(t.min, this._boundingDimensions), this._lineBoundingBox.scaling.copyFrom(this._boundingDimensions), this._lineBoundingBox.position.set((t.max.x + t.min.x) / 2, (t.max.y + t.min.y) / 2, (t.max.z + t.min.z) / 2), this._rotateSpheresParent.position.copyFrom(this._lineBoundingBox.position), this._scaleBoxesParent.position.copyFrom(this._lineBoundingBox.position), this._lineBoundingBox.computeWorldMatrix(), this._anchorMesh.position.copyFrom(this._lineBoundingBox.absolutePosition), this.attachedMesh.rotationQuaternion.copyFrom(this._tmpQuaternion), this.attachedMesh.position.copyFrom(this._tmpVector)
+          }
+          for (var r = this._rotateSpheresParent.getChildMeshes(), n = 0; n < 3; n++)
+            for (var o = 0; o < 2; o++)
+              for (var a = 0; a < 2; a++) {
+                var s = 4 * n + 2 * o + a;
+                if (0 == n && (r[s].position.set(this._boundingDimensions.x / 2, this._boundingDimensions.y * o, this._boundingDimensions.z * a), r[s].position.addInPlace(new e.Vector3(-this._boundingDimensions.x / 2, -this._boundingDimensions.y / 2, -this._boundingDimensions.z / 2)), r[s].lookAt(e.Vector3.Cross(e.Vector3.Right(), r[s].position.normalizeToNew())
+                    .normalizeToNew()
+                    .add(r[s].position))), 1 == n && (r[s].position.set(this._boundingDimensions.x * o, this._boundingDimensions.y / 2, this._boundingDimensions.z * a), r[s].position.addInPlace(new e.Vector3(-this._boundingDimensions.x / 2, -this._boundingDimensions.y / 2, -this._boundingDimensions.z / 2)), r[s].lookAt(e.Vector3.Cross(e.Vector3.Up(), r[s].position.normalizeToNew())
+                    .normalizeToNew()
+                    .add(r[s].position))), 2 == n && (r[s].position.set(this._boundingDimensions.x * o, this._boundingDimensions.y * a, this._boundingDimensions.z / 2), r[s].position.addInPlace(new e.Vector3(-this._boundingDimensions.x / 2, -this._boundingDimensions.y / 2, -this._boundingDimensions.z / 2)), r[s].lookAt(e.Vector3.Cross(e.Vector3.Forward(), r[s].position.normalizeToNew())
+                    .normalizeToNew()
+                    .add(r[s].position))), this.fixedDragMeshScreenSize) {
+                  this._rootMesh.computeWorldMatrix(), this._rotateSpheresParent.computeWorldMatrix(), r[s].computeWorldMatrix(), r[s].absolutePosition.subtractToRef(this.gizmoLayer.utilityLayerScene.activeCamera.position, this._tmpVector);
+                  var l = this.rotationSphereSize * this._tmpVector.length() / this.fixedDragMeshScreenSizeDistanceFactor;
+                  r[s].scaling.set(l, l, l)
+                } else r[s].scaling.set(this.rotationSphereSize, this.rotationSphereSize, this.rotationSphereSize)
+              }
+          var c = this._scaleBoxesParent.getChildMeshes();
+          for (n = 0; n < 2; n++)
+            for (o = 0; o < 2; o++)
+              for (a = 0; a < 2; a++) {
+                if (c[s = 4 * n + 2 * o + a])
+                  if (c[s].position.set(this._boundingDimensions.x * n, this._boundingDimensions.y * o, this._boundingDimensions.z * a), c[s].position.addInPlace(new e.Vector3(-this._boundingDimensions.x / 2, -this._boundingDimensions.y / 2, -this._boundingDimensions.z / 2)), this.fixedDragMeshScreenSize) {
+                    this._rootMesh.computeWorldMatrix(), this._scaleBoxesParent.computeWorldMatrix(), c[s].computeWorldMatrix(), c[s].absolutePosition.subtractToRef(this.gizmoLayer.utilityLayerScene.activeCamera.position, this._tmpVector);
+                    l = this.scaleBoxSize * this._tmpVector.length() / this.fixedDragMeshScreenSizeDistanceFactor;
+                    c[s].scaling.set(l, l, l)
+                  } else c[s].scaling.set(this.scaleBoxSize, this.scaleBoxSize, this.scaleBoxSize)
+              }
+          this.attachedMesh && (this._existingMeshScale.copyFrom(this.attachedMesh.scaling), i._RestorePivotPoint(this.attachedMesh))
+        }, i.prototype.setEnabledRotationAxis = function(e) {
+          this._rotateSpheresParent.getChildMeshes()
+            .forEach((function(t, i) {
+              i < 4 ? t.setEnabled(-1 != e.indexOf("x")) : i < 8 ? t.setEnabled(-1 != e.indexOf("y")) : t.setEnabled(-1 != e.indexOf("z"))
+            }))
+        }, i.prototype.dispose = function() {
+          this.gizmoLayer.utilityLayerScene.onPointerObservable.remove(this._pointerObserver), this.gizmoLayer.originalScene.onBeforeRenderObservable.remove(this._renderObserver), this._lineBoundingBox.dispose(), this._rotateSpheresParent.dispose(), this._scaleBoxesParent.dispose(), t.prototype.dispose.call(this)
+        }, i.MakeNotPickableAndWrapInBoundingBox = function(t) {
+          var i = function(e) {
+            e.isPickable = !1, e.getChildMeshes()
+              .forEach((function(e) {
+                i(e)
+              }))
+          };
+          i(t), t.rotationQuaternion || (t.rotationQuaternion = e.Quaternion.RotationYawPitchRoll(t.rotation.y, t.rotation.x, t.rotation.z));
+          var r = t.position.clone(),
+            n = t.rotationQuaternion.clone();
+          t.rotationQuaternion.set(0, 0, 0, 1), t.position.set(0, 0, 0);
+          var o = e.MeshBuilder.CreateBox("box", {
+              size: 1
+            }, t.getScene()),
+            a = t.getHierarchyBoundingVectors();
+          return a.max.subtractToRef(a.min, o.scaling), o.position.set((a.max.x + a.min.x) / 2, (a.max.y + a.min.y) / 2, (a.max.z + a.min.z) / 2), t.addChild(o), t.rotationQuaternion.copyFrom(n), t.position.copyFrom(r), t.removeChild(o), o.addChild(t), o.visibility = 0, o
+        }, i.prototype.setCustomMesh = function(t) {
+          e.Tools.Error("Custom meshes are not supported on this gizmo")
+        }, i._PivotCached = 0, i._OldPivotPoint = new e.Vector3, i._PivotTranslation = new e.Vector3, i._PivotTmpVector = new e.Vector3, i
+      }(e.Gizmo);
+      e.BoundingBoxGizmo = t
+    }(s || (s = {})),
+    function(e) {
+      var t = function() {
+        function t(t) {
+          var i = this;
+          this.scene = t, this._gizmosEnabled = {
+            positionGizmo: !1,
+            rotationGizmo: !1,
+            scaleGizmo: !1,
+            boundingBoxGizmo: !1
+          }, this._pointerObserver = null, this._attachedMesh = null, this._boundingBoxColor = e.Color3.FromHexString("#0984e3"), this.boundingBoxDragBehavior = new e.SixDofDragBehavior, this.attachableMeshes = null, this.usePointerToAttachGizmos = !0, this._defaultKeepDepthUtilityLayer = new e.UtilityLayerRenderer(t), this._defaultKeepDepthUtilityLayer.utilityLayerScene.autoClearDepthAndStencil = !1, this._defaultUtilityLayer = new e.UtilityLayerRenderer(t), this.gizmos = {
+            positionGizmo: null,
+            rotationGizmo: null,
+            scaleGizmo: null,
+            boundingBoxGizmo: null
+          }, this._pointerObserver = t.onPointerObservable.add((function(t, r) {
+            if (i.usePointerToAttachGizmos && t.type == e.PointerEventTypes.POINTERDOWN)
+              if (t.pickInfo && t.pickInfo.pickedMesh) {
+                var n = t.pickInfo.pickedMesh;
+                if (null == i.attachableMeshes)
+                  for (; n && null != n.parent;) n = n.parent;
+                else {
+                  var o = !1;
+                  i.attachableMeshes.forEach((function(e) {
+                    n && (n == e || n.isDescendantOf(e)) && (n = e, o = !0)
+                  })), o || (n = null)
+                }
+                n instanceof e.AbstractMesh ? i._attachedMesh != n && i.attachToMesh(n) : i.attachToMesh(null)
+              } else i.attachToMesh(null)
+          }))
+        }
+        return t.prototype.attachToMesh = function(e) {
+          for (var t in this._attachedMesh && this._attachedMesh.removeBehavior(this.boundingBoxDragBehavior), this._attachedMesh = e, this.gizmos) {
+            var i = this.gizmos[t];
+            i && this._gizmosEnabled[t] && (i.attachedMesh = e)
+          }
+          this.boundingBoxGizmoEnabled && this._attachedMesh && this._attachedMesh.addBehavior(this.boundingBoxDragBehavior)
+        }, Object.defineProperty(t.prototype, "positionGizmoEnabled", {
+          get: function() {
+            return this._gizmosEnabled.positionGizmo
+          },
+          set: function(t) {
+            t ? (this.gizmos.positionGizmo || (this.gizmos.positionGizmo = new e.PositionGizmo(this._defaultUtilityLayer)), this.gizmos.positionGizmo.attachedMesh = this._attachedMesh) : this.gizmos.positionGizmo && (this.gizmos.positionGizmo.attachedMesh = null), this._gizmosEnabled.positionGizmo = t
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(t.prototype, "rotationGizmoEnabled", {
+          get: function() {
+            return this._gizmosEnabled.rotationGizmo
+          },
+          set: function(t) {
+            t ? (this.gizmos.rotationGizmo || (this.gizmos.rotationGizmo = new e.RotationGizmo(this._defaultUtilityLayer)), this.gizmos.rotationGizmo.attachedMesh = this._attachedMesh) : this.gizmos.rotationGizmo && (this.gizmos.rotationGizmo.attachedMesh = null), this._gizmosEnabled.rotationGizmo = t
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(t.prototype, "scaleGizmoEnabled", {
+          get: function() {
+            return this._gizmosEnabled.scaleGizmo
+          },
+          set: function(t) {
+            t ? (this.gizmos.scaleGizmo = this.gizmos.scaleGizmo || new e.ScaleGizmo(this._defaultUtilityLayer), this.gizmos.scaleGizmo.attachedMesh = this._attachedMesh) : this.gizmos.scaleGizmo && (this.gizmos.scaleGizmo.attachedMesh = null), this._gizmosEnabled.scaleGizmo = t
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(t.prototype, "boundingBoxGizmoEnabled", {
+          get: function() {
+            return this._gizmosEnabled.boundingBoxGizmo
+          },
+          set: function(t) {
+            t ? (this.gizmos.boundingBoxGizmo = this.gizmos.boundingBoxGizmo || new e.BoundingBoxGizmo(this._boundingBoxColor, this._defaultKeepDepthUtilityLayer), this.gizmos.boundingBoxGizmo.attachedMesh = this._attachedMesh, this._attachedMesh && (this._attachedMesh.removeBehavior(this.boundingBoxDragBehavior), this._attachedMesh.addBehavior(this.boundingBoxDragBehavior))) : this.gizmos.boundingBoxGizmo && (this.gizmos.boundingBoxGizmo.attachedMesh = null), this._gizmosEnabled.boundingBoxGizmo = t
+          },
+          enumerable: !0,
+          configurable: !0
+        }), t.prototype.dispose = function() {
+          for (var e in this.scene.onPointerObservable.remove(this._pointerObserver), this.gizmos) {
+            var t = this.gizmos[e];
+            t && t.dispose()
+          }
+          this._defaultKeepDepthUtilityLayer.dispose(), this._defaultUtilityLayer.dispose(), this.boundingBoxDragBehavior.detach()
+        }, t
+      }();
+      e.GizmoManager = t
+    }(s || (s = {})),
+    function(e) {
+      var t = function() {
+        function t(t, i, r) {
+          void 0 === i && (i = 0), void 0 === r && (r = null), this.name = t, this.animations = new Array, this._positions = null, this._normals = null, this._tangents = null, this.onInfluenceChanged = new e.Observable, this._onDataLayoutChanged = new e.Observable, this._animationPropertiesOverride = null, this._scene = r || e.Engine.LastCreatedScene, this.influence = i
+        }
+        return Object.defineProperty(t.prototype, "influence", {
+          get: function() {
+            return this._influence
+          },
+          set: function(e) {
+            if (this._influence !== e) {
+              var t = this._influence;
+              this._influence = e, this.onInfluenceChanged.hasObservers && this.onInfluenceChanged.notifyObservers(0 === t || 0 === e)
+            }
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(t.prototype, "animationPropertiesOverride", {
+          get: function() {
+            return !this._animationPropertiesOverride && this._scene ? this._scene.animationPropertiesOverride : this._animationPropertiesOverride
+          },
+          set: function(e) {
+            this._animationPropertiesOverride = e
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(t.prototype, "hasPositions", {
+          get: function() {
+            return !!this._positions
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(t.prototype, "hasNormals", {
+          get: function() {
+            return !!this._normals
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(t.prototype, "hasTangents", {
+          get: function() {
+            return !!this._tangents
+          },
+          enumerable: !0,
+          configurable: !0
+        }), t.prototype.setPositions = function(e) {
+          var t = this.hasPositions;
+          this._positions = e, t !== this.hasPositions && this._onDataLayoutChanged.notifyObservers(void 0)
+        }, t.prototype.getPositions = function() {
+          return this._positions
+        }, t.prototype.setNormals = function(e) {
+          var t = this.hasNormals;
+          this._normals = e, t !== this.hasNormals && this._onDataLayoutChanged.notifyObservers(void 0)
+        }, t.prototype.getNormals = function() {
+          return this._normals
+        }, t.prototype.setTangents = function(e) {
+          var t = this.hasTangents;
+          this._tangents = e, t !== this.hasTangents && this._onDataLayoutChanged.notifyObservers(void 0)
+        }, t.prototype.getTangents = function() {
+          return this._tangents
+        }, t.prototype.serialize = function() {
+          var t = {};
+          return t.name = this.name, t.influence = this.influence, t.positions = Array.prototype.slice.call(this.getPositions()), this.hasNormals && (t.normals = Array.prototype.slice.call(this.getNormals())), this.hasTangents && (t.tangents = Array.prototype.slice.call(this.getTangents())), e.Animation.AppendSerializedAnimations(this, t), t
+        }, t.Parse = function(i) {
+          var r = new t(i.name, i.influence);
+          if (r.setPositions(i.positions), i.normals && r.setNormals(i.normals), i.tangents && r.setTangents(i.tangents), i.animations)
+            for (var n = 0; n < i.animations.length; n++) {
+              var o = i.animations[n];
+              r.animations.push(e.Animation.Parse(o))
+            }
+          return r
+        }, t.FromMesh = function(i, r, n) {
+          r || (r = i.name);
+          var o = new t(r, n, i.getScene());
+          return o.setPositions(i.getVerticesData(e.VertexBuffer.PositionKind)), i.isVerticesDataPresent(e.VertexBuffer.NormalKind) && o.setNormals(i.getVerticesData(e.VertexBuffer.NormalKind)), i.isVerticesDataPresent(e.VertexBuffer.TangentKind) && o.setTangents(i.getVerticesData(e.VertexBuffer.TangentKind)), o
+        }, t
+      }();
+      e.MorphTarget = t
+    }(s || (s = {})),
+    function(e) {
+      var t = function() {
+        function t(t) {
+          void 0 === t && (t = null), this._targets = new Array, this._targetInfluenceChangedObservers = new Array, this._targetDataLayoutChangedObservers = new Array, this._activeTargets = new e.SmartArray(16), this._supportsNormals = !1, this._supportsTangents = !1, this._vertexCount = 0, this._uniqueId = 0, this._tempInfluences = new Array, t || (t = e.Engine.LastCreatedScene), this._scene = t, this._scene && (this._scene.morphTargetManagers.push(this), this._uniqueId = this._scene.getUniqueId())
+        }
+        return Object.defineProperty(t.prototype, "uniqueId", {
+          get: function() {
+            return this._uniqueId
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(t.prototype, "vertexCount", {
+          get: function() {
+            return this._vertexCount
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(t.prototype, "supportsNormals", {
+          get: function() {
+            return this._supportsNormals
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(t.prototype, "supportsTangents", {
+          get: function() {
+            return this._supportsTangents
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(t.prototype, "numTargets", {
+          get: function() {
+            return this._targets.length
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(t.prototype, "numInfluencers", {
+          get: function() {
+            return this._activeTargets.length
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(t.prototype, "influences", {
+          get: function() {
+            return this._influences
+          },
+          enumerable: !0,
+          configurable: !0
+        }), t.prototype.getActiveTarget = function(e) {
+          return this._activeTargets.data[e]
+        }, t.prototype.getTarget = function(e) {
+          return this._targets[e]
+        }, t.prototype.addTarget = function(e) {
+          var t = this;
+          this._targets.push(e), this._targetInfluenceChangedObservers.push(e.onInfluenceChanged.add((function(e) {
+            t._syncActiveTargets(e)
+          }))), this._targetDataLayoutChangedObservers.push(e._onDataLayoutChanged.add((function() {
+            t._syncActiveTargets(!0)
+          }))), this._syncActiveTargets(!0)
+        }, t.prototype.removeTarget = function(e) {
+          var t = this._targets.indexOf(e);
+          t >= 0 && (this._targets.splice(t, 1), e.onInfluenceChanged.remove(this._targetInfluenceChangedObservers.splice(t, 1)[0]), e._onDataLayoutChanged.remove(this._targetDataLayoutChangedObservers.splice(t, 1)[0]), this._syncActiveTargets(!0))
+        }, t.prototype.serialize = function() {
+          var e = {};
+          e.id = this.uniqueId, e.targets = [];
+          for (var t = 0, i = this._targets; t < i.length; t++) {
+            var r = i[t];
+            e.targets.push(r.serialize())
+          }
+          return e
+        }, t.prototype._syncActiveTargets = function(t) {
+          var i = 0;
+          this._activeTargets.reset(), this._supportsNormals = !0, this._supportsTangents = !0, this._vertexCount = 0;
+          for (var r = 0, n = this._targets; r < n.length; r++) {
+            var o = n[r];
+            if (0 !== o.influence) {
+              this._activeTargets.push(o), this._tempInfluences[i++] = o.influence, this._supportsNormals = this._supportsNormals && o.hasNormals, this._supportsTangents = this._supportsTangents && o.hasTangents;
+              var a = o.getPositions();
+              if (a) {
+                var s = a.length / 3;
+                if (0 === this._vertexCount) this._vertexCount = s;
+                else if (this._vertexCount !== s) return void e.Tools.Error("Incompatible target. Targets must all have the same vertices count.")
+              }
+            }
+          }
+          this._influences && this._influences.length === i || (this._influences = new Float32Array(i));
+          for (var l = 0; l < i; l++) this._influences[l] = this._tempInfluences[l];
+          t && this.synchronize()
+        }, t.prototype.synchronize = function() {
+          if (this._scene)
+            for (var e = 0, t = this._scene.meshes; e < t.length; e++) {
+              var i = t[e];
+              i.morphTargetManager === this && i._syncGeometryWithMorphTargetManager()
+            }
+        }, t.Parse = function(i, r) {
+          var n = new t(r);
+          n._uniqueId = i.id;
+          for (var o = 0, a = i.targets; o < a.length; o++) {
+            var s = a[o];
+            n.addTarget(e.MorphTarget.Parse(s))
+          }
+          return n
+        }, t
+      }();
+      e.MorphTargetManager = t
+    }(s || (s = {})),
+    function(e) {
+      var t = function() {
+        function t(t, i, r) {
+          void 0 === r && (r = 2), this.maxDepth = r, this.dynamicContent = new Array, this._maxBlockCapacity = i || 64, this._selectionContent = new e.SmartArrayNoDuplicate(1024), this._creationFunc = t
+        }
+        return t.prototype.update = function(e, i, r) {
+          t._CreateBlocks(e, i, r, this._maxBlockCapacity, 0, this.maxDepth, this, this._creationFunc)
+        }, t.prototype.addMesh = function(e) {
+          for (var t = 0; t < this.blocks.length; t++) {
+            this.blocks[t].addEntry(e)
+          }
+        }, t.prototype.select = function(e, t) {
+          this._selectionContent.reset();
+          for (var i = 0; i < this.blocks.length; i++) {
+            this.blocks[i].select(e, this._selectionContent, t)
+          }
+          return t ? this._selectionContent.concat(this.dynamicContent) : this._selectionContent.concatWithNoDuplicate(this.dynamicContent), this._selectionContent
+        }, t.prototype.intersects = function(e, t, i) {
+          this._selectionContent.reset();
+          for (var r = 0; r < this.blocks.length; r++) {
+            this.blocks[r].intersects(e, t, this._selectionContent, i)
+          }
+          return i ? this._selectionContent.concat(this.dynamicContent) : this._selectionContent.concatWithNoDuplicate(this.dynamicContent), this._selectionContent
+        }, t.prototype.intersectsRay = function(e) {
+          this._selectionContent.reset();
+          for (var t = 0; t < this.blocks.length; t++) {
+            this.blocks[t].intersectsRay(e, this._selectionContent)
+          }
+          return this._selectionContent.concatWithNoDuplicate(this.dynamicContent), this._selectionContent
+        }, t._CreateBlocks = function(t, i, r, n, o, a, s, l) {
+          s.blocks = new Array;
+          for (var c = new e.Vector3((i.x - t.x) / 2, (i.y - t.y) / 2, (i.z - t.z) / 2), h = 0; h < 2; h++)
+            for (var u = 0; u < 2; u++)
+              for (var d = 0; d < 2; d++) {
+                var p = t.add(c.multiplyByFloats(h, u, d)),
+                  f = t.add(c.multiplyByFloats(h + 1, u + 1, d + 1)),
+                  m = new e.OctreeBlock(p, f, n, o + 1, a, l);
+                m.addEntries(r), s.blocks.push(m)
+              }
+        }, t.CreationFuncForMeshes = function(e, t) {
+          var i = e.getBoundingInfo();
+          !e.isBlocked && i.boundingBox.intersectsMinMax(t.minPoint, t.maxPoint) && t.entries.push(e)
+        }, t.CreationFuncForSubMeshes = function(e, t) {
+          e.getBoundingInfo()
+            .boundingBox.intersectsMinMax(t.minPoint, t.maxPoint) && t.entries.push(e)
+        }, t
+      }();
+      e.Octree = t
+    }(s || (s = {})),
+    function(e) {
+      var t = function() {
+        function t(e, t, i, r, n, o) {
+          this.entries = new Array, this._boundingVectors = new Array, this._capacity = i, this._depth = r, this._maxDepth = n, this._creationFunc = o, this._minPoint = e, this._maxPoint = t, this._boundingVectors.push(e.clone()), this._boundingVectors.push(t.clone()), this._boundingVectors.push(e.clone()), this._boundingVectors[2].x = t.x, this._boundingVectors.push(e.clone()), this._boundingVectors[3].y = t.y, this._boundingVectors.push(e.clone()), this._boundingVectors[4].z = t.z, this._boundingVectors.push(t.clone()), this._boundingVectors[5].z = e.z, this._boundingVectors.push(t.clone()), this._boundingVectors[6].x = e.x, this._boundingVectors.push(t.clone()), this._boundingVectors[7].y = e.y
+        }
+        return Object.defineProperty(t.prototype, "capacity", {
+          get: function() {
+            return this._capacity
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(t.prototype, "minPoint", {
+          get: function() {
+            return this._minPoint
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(t.prototype, "maxPoint", {
+          get: function() {
+            return this._maxPoint
+          },
+          enumerable: !0,
+          configurable: !0
+        }), t.prototype.addEntry = function(e) {
+          if (this.blocks)
+            for (var t = 0; t < this.blocks.length; t++) {
+              this.blocks[t].addEntry(e)
+            } else this._creationFunc(e, this), this.entries.length > this.capacity && this._depth < this._maxDepth && this.createInnerBlocks()
+        }, t.prototype.addEntries = function(e) {
+          for (var t = 0; t < e.length; t++) {
+            var i = e[t];
+            this.addEntry(i)
+          }
+        }, t.prototype.select = function(t, i, r) {
+          if (e.BoundingBox.IsInFrustum(this._boundingVectors, t)) {
+            if (this.blocks) {
+              for (var n = 0; n < this.blocks.length; n++) {
+                this.blocks[n].select(t, i, r)
+              }
+              return
+            }
+            r ? i.concat(this.entries) : i.concatWithNoDuplicate(this.entries)
+          }
+        }, t.prototype.intersects = function(t, i, r, n) {
+          if (e.BoundingBox.IntersectsSphere(this._minPoint, this._maxPoint, t, i)) {
+            if (this.blocks) {
+              for (var o = 0; o < this.blocks.length; o++) {
+                this.blocks[o].intersects(t, i, r, n)
+              }
+              return
+            }
+            n ? r.concat(this.entries) : r.concatWithNoDuplicate(this.entries)
+          }
+        }, t.prototype.intersectsRay = function(e, t) {
+          if (e.intersectsBoxMinMax(this._minPoint, this._maxPoint)) {
+            if (this.blocks) {
+              for (var i = 0; i < this.blocks.length; i++) {
+                this.blocks[i].intersectsRay(e, t)
+              }
+              return
+            }
+            t.concatWithNoDuplicate(this.entries)
+          }
+        }, t.prototype.createInnerBlocks = function() {
+          e.Octree._CreateBlocks(this._minPoint, this._maxPoint, this.entries, this._capacity, this._depth, this._maxDepth, this, this._creationFunc)
+        }, t
+      }();
+      e.OctreeBlock = t
+    }(s || (s = {})),
+    function(e) {
+      e.Scene.prototype.createOrUpdateSelectionOctree = function(i, r) {
+        void 0 === i && (i = 64), void 0 === r && (r = 2);
+        var n = this._getComponent(e.SceneComponentConstants.NAME_OCTREE);
+        n || (n = new t(this), this._addComponent(n)), this._selectionOctree || (this._selectionOctree = new e.Octree(e.Octree.CreationFuncForMeshes, i, r));
+        var o = this.getWorldExtends();
+        return this._selectionOctree.update(o.min, o.max, this.meshes), this._selectionOctree
+      }, Object.defineProperty(e.Scene.prototype, "selectionOctree", {
+        get: function() {
+          return this._selectionOctree
+        },
+        enumerable: !0,
+        configurable: !0
+      }), e.AbstractMesh.prototype.createOrUpdateSubmeshesOctree = function(i, r) {
+        void 0 === i && (i = 64), void 0 === r && (r = 2);
+        var n = this.getScene(),
+          o = n._getComponent(e.SceneComponentConstants.NAME_OCTREE);
+        o || (o = new t(n), n._addComponent(o)), this._submeshesOctree || (this._submeshesOctree = new e.Octree(e.Octree.CreationFuncForSubMeshes, i, r)), this.computeWorldMatrix(!0);
+        var a = this.getBoundingInfo()
+          .boundingBox;
+        return this._submeshesOctree.update(a.minimumWorld, a.maximumWorld, this.subMeshes), this._submeshesOctree
+      };
+      var t = function() {
+        function t(t) {
+          this.name = e.SceneComponentConstants.NAME_OCTREE, this.checksIsEnabled = !0, this._tempRay = new e.Ray(e.Vector3.Zero(), new e.Vector3(1, 1, 1)), this.scene = t, this.scene.getActiveMeshCandidates = this.getActiveMeshCandidates.bind(this), this.scene.getActiveSubMeshCandidates = this.getActiveSubMeshCandidates.bind(this), this.scene.getCollidingSubMeshCandidates = this.getCollidingSubMeshCandidates.bind(this), this.scene.getIntersectingSubMeshCandidates = this.getIntersectingSubMeshCandidates.bind(this)
+        }
+        return t.prototype.register = function() {
+          var e = this;
+          this.scene.onMeshRemovedObservable.add((function(t) {
+            var i = e.scene.selectionOctree;
+            if (null != i) {
+              var r = i.dynamicContent.indexOf(t); - 1 !== r && i.dynamicContent.splice(r, 1)
+            }
+          })), this.scene.onMeshImportedObservable.add((function(t) {
+            var i = e.scene.selectionOctree;
+            null != i && i.addMesh(t)
+          }))
+        }, t.prototype.getActiveMeshCandidates = function() {
+          return this.scene._selectionOctree ? this.scene._selectionOctree.select(this.scene.frustumPlanes) : this.scene._getDefaultMeshCandidates()
+        }, t.prototype.getActiveSubMeshCandidates = function(e) {
+          return e._submeshesOctree && e.useOctreeForRenderingSelection ? e._submeshesOctree.select(this.scene.frustumPlanes) : this.scene._getDefaultSubMeshCandidates(e)
+        }, t.prototype.getIntersectingSubMeshCandidates = function(t, i) {
+          return t._submeshesOctree && t.useOctreeForPicking ? (e.Ray.TransformToRef(i, t.getWorldMatrix(), this._tempRay), t._submeshesOctree.intersectsRay(this._tempRay)) : this.scene._getDefaultSubMeshCandidates(t)
+        }, t.prototype.getCollidingSubMeshCandidates = function(e, t) {
+          if (e._submeshesOctree && e.useOctreeForCollisions) {
+            var i = t._velocityWorldLength + Math.max(t._radius.x, t._radius.y, t._radius.z);
+            return e._submeshesOctree.intersects(t._basePointWorld, i)
+          }
+          return this.scene._getDefaultSubMeshCandidates(e)
+        }, t.prototype.rebuild = function() {}, t.prototype.dispose = function() {}, t
+      }();
+      e.OctreeSceneComponent = t
+    }(s || (s = {})),
+    function(e) {
+      var t = function(e) {
+        function t(t, i, r, n, o, a) {
+          var s = e.call(this, t, "anaglyph", null, ["leftSampler"], i, r[1], n, o, a) || this;
+          return s._passedProcess = r[0]._rigPostProcess, s.onApplyObservable.add((function(e) {
+            e.setTextureFromPostProcess("leftSampler", s._passedProcess)
+          })), s
+        }
+        return o(t, e), t
+      }(e.PostProcess);
+      e.AnaglyphPostProcess = t
+    }(s || (s = {})),
+    function(e) {
+      e.Node.AddNodeConstructor("AnaglyphArcRotateCamera", (function(i, r, n) {
+        return function() {
+          return new t(i, 0, 0, 1, e.Vector3.Zero(), n.interaxial_distance, r)
+        }
+      }));
+      var t = function(t) {
+        function i(i, r, n, o, a, s, l) {
+          var c = t.call(this, i, r, n, o, a, l) || this;
+          return c.interaxialDistance = s, c.setCameraRigMode(e.Camera.RIG_MODE_STEREOSCOPIC_ANAGLYPH, {
+            interaxialDistance: s
+          }), c
+        }
+        return o(i, t), i.prototype.getClassName = function() {
+          return "AnaglyphArcRotateCamera"
+        }, i
+      }(e.ArcRotateCamera);
+      e.AnaglyphArcRotateCamera = t
+    }(s || (s = {})),
+    function(e) {
+      e.Node.AddNodeConstructor("AnaglyphFreeCamera", (function(i, r, n) {
+        return function() {
+          return new t(i, e.Vector3.Zero(), n.interaxial_distance, r)
+        }
+      }));
+      var t = function(t) {
+        function i(i, r, n, o) {
+          var a = t.call(this, i, r, o) || this;
+          return a.interaxialDistance = n, a.setCameraRigMode(e.Camera.RIG_MODE_STEREOSCOPIC_ANAGLYPH, {
+            interaxialDistance: n
+          }), a
+        }
+        return o(i, t), i.prototype.getClassName = function() {
+          return "AnaglyphFreeCamera"
+        }, i
+      }(e.FreeCamera);
+      e.AnaglyphFreeCamera = t
+    }(s || (s = {})),
+    function(e) {
+      e.Node.AddNodeConstructor("AnaglyphGamepadCamera", (function(i, r, n) {
+        return function() {
+          return new t(i, e.Vector3.Zero(), n.interaxial_distance, r)
+        }
+      }));
+      var t = function(t) {
+        function i(i, r, n, o) {
+          var a = t.call(this, i, r, o) || this;
+          return a.interaxialDistance = n, a.setCameraRigMode(e.Camera.RIG_MODE_STEREOSCOPIC_ANAGLYPH, {
+            interaxialDistance: n
+          }), a
+        }
+        return o(i, t), i.prototype.getClassName = function() {
+          return "AnaglyphGamepadCamera"
+        }, i
+      }(e.GamepadCamera);
+      e.AnaglyphGamepadCamera = t
+    }(s || (s = {})),
+    function(e) {
+      e.Node.AddNodeConstructor("AnaglyphUniversalCamera", (function(i, r, n) {
+        return function() {
+          return new t(i, e.Vector3.Zero(), n.interaxial_distance, r)
+        }
+      }));
+      var t = function(t) {
+        function i(i, r, n, o) {
+          var a = t.call(this, i, r, o) || this;
+          return a.interaxialDistance = n, a.setCameraRigMode(e.Camera.RIG_MODE_STEREOSCOPIC_ANAGLYPH, {
+            interaxialDistance: n
+          }), a
+        }
+        return o(i, t), i.prototype.getClassName = function() {
+          return "AnaglyphUniversalCamera"
+        }, i
+      }(e.UniversalCamera);
+      e.AnaglyphUniversalCamera = t
+    }(s || (s = {})),
+    function(e) {
+      var t = function(t) {
+        function i(i, r, n, o, a, s) {
+          var l = t.call(this, i, "stereoscopicInterlace", ["stepSize"], ["camASampler"], 1, r[1], o, a, s, n ? "#define IS_STEREOSCOPIC_HORIZ 1" : void 0) || this;
+          return l._passedProcess = r[0]._rigPostProcess, l._stepSize = new e.Vector2(1 / l.width, 1 / l.height), l.onSizeChangedObservable.add((function() {
+            l._stepSize = new e.Vector2(1 / l.width, 1 / l.height)
+          })), l.onApplyObservable.add((function(e) {
+            e.setTextureFromPostProcess("camASampler", l._passedProcess), e.setFloat2("stepSize", l._stepSize.x, l._stepSize.y)
+          })), l
+        }
+        return o(i, t), i
+      }(e.PostProcess);
+      e.StereoscopicInterlacePostProcess = t
+    }(s || (s = {})),
+    function(e) {
+      e.Node.AddNodeConstructor("StereoscopicArcRotateCamera", (function(i, r, n) {
+        return function() {
+          return new t(i, 0, 0, 1, e.Vector3.Zero(), n.interaxial_distance, n.isStereoscopicSideBySide, r)
+        }
+      }));
+      var t = function(t) {
+        function i(i, r, n, o, a, s, l, c) {
+          var h = t.call(this, i, r, n, o, a, c) || this;
+          return h.interaxialDistance = s, h.isStereoscopicSideBySide = l, h.setCameraRigMode(l ? e.Camera.RIG_MODE_STEREOSCOPIC_SIDEBYSIDE_PARALLEL : e.Camera.RIG_MODE_STEREOSCOPIC_OVERUNDER, {
+            interaxialDistance: s
+          }), h
+        }
+        return o(i, t), i.prototype.getClassName = function() {
+          return "StereoscopicArcRotateCamera"
+        }, i
+      }(e.ArcRotateCamera);
+      e.StereoscopicArcRotateCamera = t
+    }(s || (s = {})),
+    function(e) {
+      e.Node.AddNodeConstructor("StereoscopicFreeCamera", (function(i, r, n) {
+        return function() {
+          return new t(i, e.Vector3.Zero(), n.interaxial_distance, n.isStereoscopicSideBySide, r)
+        }
+      }));
+      var t = function(t) {
+        function i(i, r, n, o, a) {
+          var s = t.call(this, i, r, a) || this;
+          return s.interaxialDistance = n, s.isStereoscopicSideBySide = o, s.setCameraRigMode(o ? e.Camera.RIG_MODE_STEREOSCOPIC_SIDEBYSIDE_PARALLEL : e.Camera.RIG_MODE_STEREOSCOPIC_OVERUNDER, {
+            interaxialDistance: n
+          }), s
+        }
+        return o(i, t), i.prototype.getClassName = function() {
+          return "StereoscopicFreeCamera"
+        }, i
+      }(e.FreeCamera);
+      e.StereoscopicFreeCamera = t
+    }(s || (s = {})),
+    function(e) {
+      e.Node.AddNodeConstructor("StereoscopicGamepadCamera", (function(i, r, n) {
+        return function() {
+          return new t(i, e.Vector3.Zero(), n.interaxial_distance, n.isStereoscopicSideBySide, r)
+        }
+      }));
+      var t = function(t) {
+        function i(i, r, n, o, a) {
+          var s = t.call(this, i, r, a) || this;
+          return s.interaxialDistance = n, s.isStereoscopicSideBySide = o, s.setCameraRigMode(o ? e.Camera.RIG_MODE_STEREOSCOPIC_SIDEBYSIDE_PARALLEL : e.Camera.RIG_MODE_STEREOSCOPIC_OVERUNDER, {
+            interaxialDistance: n
+          }), s
+        }
+        return o(i, t), i.prototype.getClassName = function() {
+          return "StereoscopicGamepadCamera"
+        }, i
+      }(e.GamepadCamera);
+      e.StereoscopicGamepadCamera = t
+    }(s || (s = {})),
+    function(e) {
+      e.Node.AddNodeConstructor("StereoscopicFreeCamera", (function(i, r, n) {
+        return function() {
+          return new t(i, e.Vector3.Zero(), n.interaxial_distance, n.isStereoscopicSideBySide, r)
+        }
+      }));
+      var t = function(t) {
+        function i(i, r, n, o, a) {
+          var s = t.call(this, i, r, a) || this;
+          return s.interaxialDistance = n, s.isStereoscopicSideBySide = o, s.setCameraRigMode(o ? e.Camera.RIG_MODE_STEREOSCOPIC_SIDEBYSIDE_PARALLEL : e.Camera.RIG_MODE_STEREOSCOPIC_OVERUNDER, {
+            interaxialDistance: n
+          }), s
+        }
+        return o(i, t), i.prototype.getClassName = function() {
+          return "StereoscopicUniversalCamera"
+        }, i
+      }(e.UniversalCamera);
+      e.StereoscopicUniversalCamera = t
+    }(s || (s = {})),
+    function(e) {
+      var t = function(t) {
+        function i(i, r, n, o) {
+          var a = t.call(this, i, "vrDistortionCorrection", ["LensCenter", "Scale", "ScaleIn", "HmdWarpParam"], null, o.postProcessScaleFactor, r, e.Texture.BILINEAR_SAMPLINGMODE) || this;
+          return a._isRightEye = n, a._distortionFactors = o.distortionK, a._postProcessScaleFactor = o.postProcessScaleFactor, a._lensCenterOffset = o.lensCenterOffset, a.adaptScaleToCurrentViewport = !0, a.onSizeChangedObservable.add((function() {
+            a._scaleIn = new e.Vector2(2, 2 / a.aspectRatio), a._scaleFactor = new e.Vector2(1 / a._postProcessScaleFactor * .5, 1 / a._postProcessScaleFactor * .5 * a.aspectRatio), a._lensCenter = new e.Vector2(a._isRightEye ? .5 - .5 * a._lensCenterOffset : .5 + .5 * a._lensCenterOffset, .5)
+          })), a.onApplyObservable.add((function(e) {
+            e.setFloat2("LensCenter", a._lensCenter.x, a._lensCenter.y), e.setFloat2("Scale", a._scaleFactor.x, a._scaleFactor.y), e.setFloat2("ScaleIn", a._scaleIn.x, a._scaleIn.y), e.setFloat4("HmdWarpParam", a._distortionFactors[0], a._distortionFactors[1], a._distortionFactors[2], a._distortionFactors[3])
+          })), a
+        }
+        return o(i, t), i
+      }(e.PostProcess);
+      e.VRDistortionCorrectionPostProcess = t
+    }(s || (s = {})),
+    function(e) {
+      var t = function() {
+        function t() {
+          var t = this;
+          this._screenOrientationAngle = 0, this._screenQuaternion = new e.Quaternion, this._alpha = 0, this._beta = 0, this._gamma = 0, this._orientationChanged = function() {
+            t._screenOrientationAngle = void 0 !== window.orientation ? +window.orientation : window.screen.orientation && window.screen.orientation.angle ? window.screen.orientation.angle : 0, t._screenOrientationAngle = -e.Tools.ToRadians(t._screenOrientationAngle / 2), t._screenQuaternion.copyFromFloats(0, Math.sin(t._screenOrientationAngle), 0, Math.cos(t._screenOrientationAngle))
+          }, this._deviceOrientation = function(e) {
+            t._alpha = null !== e.alpha ? e.alpha : 0, t._beta = null !== e.beta ? e.beta : 0, t._gamma = null !== e.gamma ? e.gamma : 0
+          }, this._constantTranform = new e.Quaternion(-Math.sqrt(.5), 0, 0, Math.sqrt(.5)), this._orientationChanged()
+        }
+        return Object.defineProperty(t.prototype, "camera", {
+          get: function() {
+            return this._camera
+          },
+          set: function(t) {
+            this._camera = t, null == this._camera || this._camera.rotationQuaternion || (this._camera.rotationQuaternion = new e.Quaternion)
+          },
+          enumerable: !0,
+          configurable: !0
+        }), t.prototype.attachControl = function(e, t) {
+          window.addEventListener("orientationchange", this._orientationChanged), window.addEventListener("deviceorientation", this._deviceOrientation), this._orientationChanged()
+        }, t.prototype.detachControl = function(e) {
+          window.removeEventListener("orientationchange", this._orientationChanged), window.removeEventListener("deviceorientation", this._deviceOrientation)
+        }, t.prototype.checkInputs = function() {
+          this._alpha && (e.Quaternion.RotationYawPitchRollToRef(e.Tools.ToRadians(this._alpha), e.Tools.ToRadians(this._beta), -e.Tools.ToRadians(this._gamma), this.camera.rotationQuaternion), this._camera.rotationQuaternion.multiplyInPlace(this._screenQuaternion), this._camera.rotationQuaternion.multiplyInPlace(this._constantTranform), this._camera.rotationQuaternion.z *= -1, this._camera.rotationQuaternion.w *= -1)
+        }, t.prototype.getClassName = function() {
+          return "FreeCameraDeviceOrientationInput"
+        }, t.prototype.getSimpleName = function() {
+          return "deviceOrientation"
+        }, t
+      }();
+      e.FreeCameraDeviceOrientationInput = t, e.CameraInputTypes.FreeCameraDeviceOrientationInput = t
+    }(s || (s = {})),
+    function(e) {
+      var t = function() {
+        function e() {
+          this.alphaCorrection = 1, this.betaCorrection = 1, this.gammaCorrection = 1, this._alpha = 0, this._gamma = 0, this._dirty = !1, this._deviceOrientationHandler = this._onOrientationEvent.bind(this)
+        }
+        return e.prototype.attachControl = function(e, t) {
+          this.camera.attachControl(e, t), window.addEventListener("deviceorientation", this._deviceOrientationHandler)
+        }, e.prototype._onOrientationEvent = function(e) {
+          null !== e.alpha && (this._alpha = 0 | +e.alpha), null !== e.gamma && (this._gamma = 0 | +e.gamma), this._dirty = !0
+        }, e.prototype.checkInputs = function() {
+          this._dirty && (this._dirty = !1, this._gamma < 0 && (this._gamma = 180 + this._gamma), this.camera.alpha = -this._alpha / 180 * Math.PI % Math.PI * 2, this.camera.beta = this._gamma / 180 * Math.PI)
+        }, e.prototype.detachControl = function(e) {
+          window.removeEventListener("deviceorientation", this._deviceOrientationHandler)
+        }, e.prototype.getClassName = function() {
+          return "ArcRotateCameraVRDeviceOrientationInput"
+        }, e.prototype.getSimpleName = function() {
+          return "VRDeviceOrientation"
+        }, e
+      }();
+      e.ArcRotateCameraVRDeviceOrientationInput = t, e.CameraInputTypes.ArcRotateCameraVRDeviceOrientationInput = t
+    }(s || (s = {})),
+    function(e) {
+      var t = function() {
+        function t() {
+          this.compensateDistortion = !0
+        }
+        return Object.defineProperty(t.prototype, "aspectRatio", {
+          get: function() {
+            return this.hResolution / (2 * this.vResolution)
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(t.prototype, "aspectRatioFov", {
+          get: function() {
+            return 2 * Math.atan(this.postProcessScaleFactor * this.vScreenSize / (2 * this.eyeToScreenDistance))
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(t.prototype, "leftHMatrix", {
+          get: function() {
+            var t = 4 * (this.hScreenSize / 4 - this.lensSeparationDistance / 2) / this.hScreenSize;
+            return e.Matrix.Translation(t, 0, 0)
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(t.prototype, "rightHMatrix", {
+          get: function() {
+            var t = 4 * (this.hScreenSize / 4 - this.lensSeparationDistance / 2) / this.hScreenSize;
+            return e.Matrix.Translation(-t, 0, 0)
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(t.prototype, "leftPreViewMatrix", {
+          get: function() {
+            return e.Matrix.Translation(.5 * this.interpupillaryDistance, 0, 0)
+          },
+          enumerable: !0,
+          configurable: !0
+        }), Object.defineProperty(t.prototype, "rightPreViewMatrix", {
+          get: function() {
+            return e.Matrix.Translation(-.5 * this.interpupillaryDistance, 0, 0)
+          },
+          enumerable: !0,
+          configurable: !0
+        }), t.GetDefault = function() {
+          var e = new t;
+          return e.hResolution = 1280, e.vResolution = 800, e.hScreenSize = .149759993, e.vScreenSize = .0935999975, e.vScreenCenter = .0467999987, e.eyeToScreenDistance = .0410000011, e.lensSeparationDistance = .063500002, e.interpupillaryDistance = .064000003, e.distortionK = [1, .219999999, .239999995, 0], e.chromaAbCorrection = [.995999992, -.00400000019, 1.01400006, 0], e.postProcessScaleFactor = 1.714605507808412, e.lensCenterOffset = .151976421, e
+        }, t
+      }();
+      e.VRCameraMetrics = t
+    }(s || (s = {})),
+    function(e) {
+      e.Node.AddNodeConstructor("WebVRFreeCamera", (function(i, r) {
+        return function() {
+          return new t(i, e.Vector3.Zero(), r)
+        }
+      })), e.Node.AddNodeConstructor("WebVRGamepadCamera", (function(i, r) {
+        return function() {
+          return new t(i, e.Vector3.Zero(), r)
+        }
+      }));
+      var t = function(t) {
+        function i(i, r, n, o) {
+          void 0 === o && (o = {});
+          var a = t.call(this, i, r, n) || this;
+          a.webVROptions = o, a._vrDevice = null, a.rawPose = null, a._specsVersion = "1.1", a._attached = !1, a._descendants = [], a._deviceRoomPosition = e.Vector3.Zero(), a._deviceRoomRotationQuaternion = e.Quaternion.Identity(), a._standingMatrix = null, a.devicePosition = e.Vector3.Zero(), a.deviceRotationQuaternion = e.Quaternion.Identity(), a.deviceScaleFactor = 1, a._deviceToWorld = e.Matrix.Identity(), a._worldToDevice = e.Matrix.Identity(), a.controllers = [], a.onControllersAttachedObservable = new e.Observable, a.onControllerMeshLoadedObservable = new e.Observable, a.onPoseUpdatedFromDeviceObservable = new e.Observable, a._poseSet = !1, a.rigParenting = !0, a._defaultHeight = void 0, a._htmlElementAttached = null, a._detachIfAttached = function() {
+            var e = a.getEngine()
+              .getVRDevice();
+            e && !e.isPrese
